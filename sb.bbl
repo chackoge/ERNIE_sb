@@ -1,0 +1,97 @@
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\selectlanguage}[1]{\relax}
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+
+\bibitem[{Garfield(1980)}]{Garfield1980}
+Garfield, E. (1980).
+\newblock Premature discovery or delayed recognition- why?
+\newblock \emph{Current Contents} 21, 5--10.
+\newblock Also published in Essays of an Information Scientist, Vol:4,
+  p.488-493, 1979-80
+\bibAnnoteFile{Garfield1980}
+
+\bibitem[{Glänzel and Garfield(2004)}]{Glanzel2004}
+Glänzel, W. and Garfield, E. (2004).
+\newblock The myth of delayed recognition.
+\newblock \emph{Scientist} 18, 8
+\bibAnnoteFile{Glanzel2004}
+
+\bibitem[{Glänzel et~al.(2003)Glänzel, Schlemmer, and Thijs}]{Glanzel2003}
+Glänzel, W., Schlemmer, B., and Thijs, B. (2003).
+\newblock Better late than never? on the chance to become highly cited only
+  beyond the standard bibliometric time horizon.
+\newblock \emph{Katholieke Universiteit Leuven, Open Access publications from
+  Katholieke Universiteit Leuven} 58.
+\newblock \doi{10.1023/B:SCIE.0000006881.30700.ea}
+\bibAnnoteFile{Glanzel2003}
+
+\bibitem[{Ke et~al.(2015)Ke, Ferrara, Radicchi, and Flammini}]{Ke2015}
+Ke, Q., Ferrara, E., Radicchi, F., and Flammini, A. (2015).
+\newblock {Defining and identifying Sleeping Beauties in science}.
+\newblock \emph{Proceedings of the National Academy of Sciences} 112,
+  7426--7431.
+\newblock \doi{10.1073/pnas.1424329112}
+\bibAnnoteFile{Ke2015}
+
+\bibitem[{Li(2014)}]{Li2014}
+Li, J. (2014).
+\newblock Citation curves of “all-elements-sleeping-beauties”: “flash in
+  the pan” first and then “delayed recognition”.
+\newblock \emph{Scientometrics} 100, 595--601.
+\newblock \doi{10.1007/s11192-013-1217-z}
+\bibAnnoteFile{Li2014}
+
+\bibitem[{Li and Ye(2016)}]{Li2016}
+Li, J. and Ye, F.~Y. (2016).
+\newblock Distinguishing sleeping beauties in science.
+\newblock \emph{Scientometrics} 108, 821--828.
+\newblock \doi{10.1007/s11192-016-1977-3}
+\bibAnnoteFile{Li2016}
+
+\bibitem[{Song et~al.(2018)Song, Situ, Zhu, and Lei}]{Song2018}
+Song, Y., Situ, F., Zhu, H., and Lei, J. (2018).
+\newblock To be the prince to wake up sleeping beauty: the rediscovery of the
+  delayed recognition studies.
+\newblock \emph{Scientometrics} 117, 9--24
+\bibAnnoteFile{Song2018}
+
+\bibitem[{{van Raan}(1990)}]{vanRaan1990}
+{van Raan}, A. F.~J. (1990).
+\newblock Fractal dimension of co-citations.
+\newblock \emph{Nature} 347, 626--626.
+\newblock \doi{10.1038/347626a0}
+\bibAnnoteFile{vanRaan1990}
+
+\bibitem[{van Raan(2004)}]{Raan2004}
+van Raan, A. F.~J. (2004).
+\newblock {Sleeping Beauties in Science}.
+\newblock \emph{Scientometrics} 59, 467--472.
+\newblock \doi{10.1023/B:SCIE.0000018543.82441.f1}
+\bibAnnoteFile{Raan2004}
+
+\bibitem[{van Raan and Winnink(2019)}]{Raan2019}
+van Raan, A. F.~J. and Winnink, J.~J. (2019).
+\newblock {The occurrence of ‘Sleeping Beauty’ publications in medical
+  research: Their scientific impact and technological relevance}.
+\newblock \emph{PLOS ONE} 14, 1--34.
+\newblock \doi{10.1371/journal.pone.0223373}
+\bibAnnoteFile{Raan2019}
+
+\bibitem[{Wang et~al.(2013)Wang, Song, and Barabási}]{Wang2013}
+Wang, D., Song, C., and Barabási, A.-L. (2013).
+\newblock Quantifying {Long}-{Term} {Scientific} {Impact}.
+\newblock \emph{Science} 342, 127--132.
+\newblock \doi{10.1126/science.1237825}
+\bibAnnoteFile{Wang2013}
+
+\end{thebibliography}
