@@ -60,40 +60,48 @@ Enter abstract text later
 
 \section{Introduction}
 
-The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. One implication is that the new idea(s) presented in such an article is `ahead of its time' and resistance to it consequently delays its recognition. Other causes for delayed recognition and resistance have also been postulated that include (i) information overload from the large amount of information available (ii)  modest communication skills of authors (iii) insufficient promotion of ideas (iv) conflict with existing theory and experimental data (v) the author's position in the social hierarchy of science (vi)  multiple discovery (vii) the management of scientific institutions (viii) and the conservative nature of establishments~\citep{Barber1961,Merton1963,Cole1970,Garfield1970a,Garfield1980a}. This phenomenon and the term used to describe it, Sleeping Beauty, has been further studied and debated with some degree of agreement that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of a new idea~\citep{Glanzel2003,Glanzel2004,redner_2005,Braun_2010,Li2014,Ke2015,Li2016,Song2018,sugimoto_mostafa_2018}. 
+The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. One implication is that the new concept presented in such an article is `ahead of its time' and resistance to it delays recognition. Other causes for delayed recognition have also been postulated that include (i) information overload from the large amount of information available, (ii)  modest communication skills of authors, (iii) insufficient promotion of ideas, (iv) conflict with existing theory and experimental data, (v) the author's position in the social hierarchy of science, (vi)  multiple discovery, (vii) the management structures of scientific institutions, (viii), and the conservative nature of establishments~\citep{Barber1961,Merton1963,Cole1970,Garfield1970a,Garfield1980a}. The Sleeping Beauty phenomenon has been studied and debated with some degree of agreement that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of a new idea~\citep{Glanzel2003,Glanzel2004,redner_2005,Braun_2010,Li2014,Ke2015,Li2016,Song2018,sugimoto_mostafa_2018,ye_bornmann_2018}. 
 
-For identifying Sleeping Beauties, van Raan, and colleagues propose a classification~\citep{Raan2004}, with subsequent refinements~\citep{Raan2019}, that considers length of sleep, depth of sleep, and awake intensity as parameters. [What did van Raan conclude] \cite{Ke2015} presented a parameter free approach to reduce arbitrariness in parameters selection, and also examined a much larger dataset of 22 million publications to identify Sleeping Beauties. [Need to read what Song and Ye did- also the size of data looked at by van Raan, Redner Ye and others].
+Detection of Sleeping Beauties has largely followed a parameterized and parameter free formulations...not sure how to say this but I need to introduce the Beauty Coefficient somehow.
 
-However, the work described above has focused on single publications and new ideas also result from the combination of two previously independent ones~\citep{MarshakovaShaikevich1973,Small1973}. The strength of co-citation, measured by its frequency, can be interpreted as the extent to which such new ideas are recognized within scientific communities. Novelty in co-citation has sparked interest from different perspectives, and has been the subject of several studies ~\citep{Uzzi2013,Boyack2014,Wang2017,Bradley2020} that followed the defining studies of Marshakova-Shaikevich and Small in 1973. 
 
-Tracing co-citations provides another avenue to study the manner in which such new ideas are accepted and the rate at which acceptance occurs enables the identification of Sleeping Beauty analogs, that we term delayed co-citations. Delayed recognition as measured by co-citation has been briefly explored ~\citep{devarakonda_2020} using simplified criteria derived from prior Sleeping Beauty studies on single publications~\citep{Ke2015,Raan2004,Raan2019}, to identify instances of co-cited articles with delayed kinetics.  \cite{devarakonda_2020} examined 33.6 million reference pairs with co-citation frequencies ranging from 1 to 51,567.  \emph{Say what we found}. This initial exploration, albeit at scale, only considered reference pairs where each member of a pair was in the 99th percentile of highly cited articles in Scopus.
+While the work described above has focused on single publications, new ideas also result from combining two previously independent ones, and the recognition of such novelty through recombination can be examined by co-citation analysis~\citep{MarshakovaShaikevich1973,Small1973,Uzzi2013,Boyack2014,Wang2017,Bradley2020}. Tracing co-citations, therefore, provides another lens with which to study delayed recognition. 
 
-In this study, we extend our initial study on delayed co-citation by examining a much larger working dataset, approximately 940 million pairs of articles. Using stringent criteria for selection, we identify a small number of co-cited pairs that would qualify for delayed recognition. We also ask whether delayed co-citations are derived from Sleeping Beauty publications. Finally, we compare, modifications of a parameter free approach to the more traditional parameterized approaches in the literature.
+Delayed recognition as measured by co-citation has been briefly explored by ~\cite{devarakonda_2020} in a study of 33.6 million reference pairs. The authors used simplified criteria derived from prior Sleeping Beauty studies on single publications~\citep{Ke2015,Raan2004,Raan2019} and reported 24 co-cited pairs all in the 99th percentile of co-citation frequencies, and proposed the term \emph{delayed co-citations}.  This initial exploration, albeit at scale, only considered reference pairs where each member of a pair was in the 99th percentile of highly cited articles in Scopus.
+
+In this study, we extend our initial study on delayed co-citation by constructing a much larger dataset, approximately 940 million pairs of articles. Using refined criteria for selection, we identify co-cited article pairs that exhibit delayed recognition. We also ask whether delayed co-citations are derived from Sleeping Beauty publications. Finally, we compare, modifications of a parameter free approach~\citep{Ke2015} to parameterized approaches~\citep{Raan2004,Raan2019}. [Need to read what Song and Ye did- also the size of data looked at by van Raan, Redner Ye and others].
+
 
 \section{MATERIALS AND METHODS}
 
-We have previously described a dataset of 33.6 million cited pairs each belonging to the top 1\% of cited articles in the Scopus bibliography~\citep[Figure~2]{devarakonda_2020}. In this study, we expanded our exploration by assembling all co-cited pairs from references cited by articles published in Scopus for the 11 year period, 1985-1995, not just those drawn from the top 1\% of cited articles. All calculations were done using a combination of SQL, Cypher, and Python scripts. 
+We have previously described a dataset of 33.6 million cited pairs each belonging to the top 1\% of cited articles in the Scopus bibliography~\citep[Figure~2]{devarakonda_2020}. In the present study, we expand the dataset to include all co-cited pairs from references cited by articles published in Scopus in the 11 year period, 1985-1995, not only those drawn from the top 1\% of cited articles. We also developed methods to handle a much larger volume of data using a combination of SQL, Cypher, and Python. Code for parsing Scopus XML data, a PostgreSQL schema for Scopus data, SQL, Cypher, and Python scripts used in this study are freely available from our Github repository~\citep{Korobskiy2019}.
 
-To assemble and analyze a working dataset, we exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist in comma separated values (csv) format, imported these data into a Neo4j database and  created indexes for performance [ cite our Github repo]. To generate co-cited pairs, we first selected all publications in Scopus of citation type `article' that were published in the years 1985-1995 (inclusive of both), and that had at least five cited references each. In counting references, we excluded any that were not indexed in Scopus (references with complete Scopus records not merely with cryptic placeholder identifiers). We further filtered rare cases in the data where a publication cites itself or if the publication date of a cited reference was greater than the publication date of its citing article. We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles. At this point, we had constructed a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of all pairs across all Scopus in Neo4j by splitting co-cited pairs into small batches (1000 pairs), and processed them in parallel using the GNU Parallel utility after tuning batch size and a degree of parallelization (that is, CPU cores used). Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, in order to generate we inserted zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus being used in our study. We compared small samples between the two datasets and found that the difference in co-citation frequencies can be correctly bridged by including citations from publications in 2019 and later. 
+To assemble and analyze a working dataset, we first exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist, imported these data into a Neo4j database and  created indexes for performance. From these base data, we selected all publications in Scopus of citation type `article' published in the years 1985-1995 (inclusive of both), and that had at least five cited references each. In counting references, we only considered references with complete Scopus records and excluded any with cryptic placeholder identifiers. We further filtered rare cases in the data where a publication cites itself, or if the publication date of a cited reference was missing or greater than the publication date of its citing article. 
+
+We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles resulting in a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by splitting co-cited pairs into small batches (1000 pairs) in Neo4j, and processed them in parallel using the GNU Parallel utility after tuning batch size and the degree of parallelization (CPU cores used). \textcolor{blue}{Shall we share some performance data?}. 
+
+Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, for continuity of coverage, we inserted zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus and computing kinetic data through 2018 in this study. We compared small samples between the two datasets and found that minor differences in co-citation frequencies could be bridged by including citations from publications in 2019 and later. 
 
 \section{RESULTS AND DISCUSSION}
 
-In this study on delayed co-citations, we first examined patterns of cited references in 3,433,578 publications in the Scopus database that were published in the years 1985-1995. The criteria for selection of these publications were that they were classified as `article', that they were published in the period 1985-1995, and they contained at least 5 cited references each. We generated all possible co-cited pairs for the references in these articles and deduplicated them since the same reference pair could occur in more than one article in the dataset, and then measured the co-citation frequency of each pair across the entire Scopus database through 2018 (Fig \ref{fig:fig1},Table \ref{tab:table1}). The distribution of co-citation frequencies mirrors an earlier report~\citep{devarakonda_2020}, in which we describe a combination of lognormal and power law distributions. [We need to say some more about this huge undertaking].
+In this study on delayed co-citations, we first examined cited references in 3,433,578 publications in the Scopus database that were published in the years 1985-1995. The criteria for selection of these publications were that they were classified as `article', that they were published in the period 1985-1995, and they contained at least 5 cited references each. We generated all possible co-cited pairs for the references in these articles and de-duplicated them since the same reference pair can occur in more than one article. Then we measured the co-citation frequency of each pair across the entire Scopus database by counting all co-citation events from the first possible year onwards(Fig \ref{fig:fig1},Table \ref{tab:table1}).
 
-A particular focus of our interest is frequently co-cited publications, which by definition are derived from highly cited publications~\cite{Small1973}, thus we have examined a subset of the ~940 million pairs using the following criteria. First, a minimum co-citation frequency of 100, and second a maximum annual co-citation frequency of at least 20 (the third condition, $>=$1970, should go in M\&M). These criteria are analogous to van Raan and Redner (add appropriate citations) who did X, Y, and Z. After applying these two restrictions, the number of co-cited pairs is reduced to 51,613 (approximately 0.055\% of the total number), consistent with previous reports of citation distributions. 
+\iffalse
+of co-citation through 2018 (Fig \ref{fig:fig1},Table \ref{tab:table1}). The distribution of co-citation frequencies mirrors an earlier report~\citep{devarakonda_2020}, in which we describe a combination of lognormal and power law distributions. [We need to say some more about this huge undertaking].
+\fi
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=10cm]{fig1}% This is a *.eps file
 \end{center}
-\caption{ Frequencies of ~940 million co-cited pairs drawn from Scopus 1985-1995. Pairwise combinations, $n\choose 2$, of references from articles indexed in Scopus (1985-1995), were generated as described in Materials and Methods. Co-citation frequencies ranged from 1 to 52,471 with a median frequency of 1. The empirical cumulative distribution function (ECDF) was calculated from 940,357,633 frequencies and plotted against co-citation frequencies on a log\textsubscript{2} scale using the ggplot2 package~\citep{ggplot2} and the expression \emph{ggplot(x, aes(frequency) + stat\_ecdf(geom=\textquotesingle step\textquotesingle)}}
+\caption{Frequencies of $\sim$940 million co-cited pairs drawn from Scopus 1985-1995. Pairwise combinations, $n\choose 2$, of references from articles indexed in Scopus (1985-1995), were generated as described in Materials and Methods. Total co-citation frequencies for these pairs, ranged from 1 to 52,471 with a median frequency of 1. The empirical cumulative distribution function (ECDF) was calculated from 940,357,633 co-citation frequencies and plotted against co-citation frequencies on a log\textsubscript{2} scale using the ggplot2 package and the expression \emph{ggplot(x, aes(frequency) + stat\_ecdf(geom=\textquotesingle step\textquotesingle)}}
 \label{fig:fig1}
 \end{figure}
 
 \begin{table}[ht]
-\caption{Distribution of ~940 million Co-citation Frequencies. The count of co-cited pairs in each frequency class as well as the percentage relative to the total number of 940,357,633 is shown. Frequencies include the lower bound in each class and exclude the upper bound.}% title of Table
+\caption{Distribution of ~940 million Co-citation Frequencies. The count of co-cited pairs in each frequency class as well as the percentage relative to the total number of 940,357,633 is shown. Counts include the lower bound in each class and exclude the upper bound. Add legend details}% title of Table
 \centering % used for centering table
-\begin{center}
+\begin{center}0
 \begin{tabular}{rll} 
 \emph{f} Interval & Count & Percentage \\
 \hline % inserts single horizontal line
@@ -116,53 +124,94 @@ $> $ 2048 & 358 & 0.000038\\
 \end{table}
 
 
-To find possible sleeping beauty pairs, we added the following conditions. (i)  A co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year, which is the publication year of the newer individual paper, to the first year that the pair receives more than $2$ co-citations. During this sleeping period, the average annual co-citation frequency $<=$1 and the maximum allowed annual co-citation frequency is 2. To be considered as a sleeping beauty, the awakening period that follows the sleeping period is characterized by (i) a peak annual co-citation frequency of 20 and a minimum total frequency of 100. The above criteria when collectively applied, identified 1,196 cases of delayed co-citation, which are summarized in (need a table and a figure). We also calculated the slope between the co-citation frequency in the first awakening year and the first peak, which is summarized in Table 3. (create Table 3). Of these 1,196 pairs, the maximum possible slope was seen in the first year of awakening for 10 pairs, which are summarized in Table X.  
+The data in Fig \ref{fig:fig1} show a highly skewed distribution of co-citation frequencies across a large dataset. Roughly 84\% of the pairs have a total co-citation frequency of 2 or less, and the 99th percentile is only 16 although each pair had at least 10 years to accumulate co-citations. Even for a pair of articles from the most recent year in our data, 1995, this frequency of 16 corresponds to less than one co-citation per year on average. Thus, a very small fraction of pairs in these data have co-citation frequencies greater than 1 per year. One must consider that the reasons for delayed recognition described in the Introduction also apply to a non-recognition of merit or a recognition of non-merit, at least to a broader readership.
+
+Beyond, a high level description of all co-citation frequencies however, we are interested in frequently co-cited publications, which represent a high degree of interest from the community, and are derived from highly cited publications~\citep{Small1973}. Thus, we subset the data using a more intuitive threshold of 100 for co-citation frequency along with a maximum annual co-citation frequency of at least 20. These criteria are analogous to those proposed by van Raan~\citep{Raan2004} and Redner~\citep{redner_2005}. After applying these two further restrictions, the number of co-cited pairs is reduced to 51,613 (approximately 0.055\% of the total number of pairs).
+
+To find possible delayed co-citation pairs, we applied the following conditions to 51,613 pairs: (i)  A co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year to the first year that the pair receives more than $2$ co-citations. During this sleeping period, the average annual co-citation frequency $<=$1 and the maximum allowed annual co-citation frequency is 2. To be considered as a sleeping beauty, the awakening period that follows the sleeping period is characterized by (i) a peak annual co-citation frequency of $>=$20 and a minimum total frequency of 100. The above criteria when collectively applied, identified 1,196 cases of delayed co-citation, which are summarized in. We also calculated the slope between the co-citation frequency in the first awakening year and the first peak, which is summarized in Table 3. (create Table 3). Of these 1,196 pairs, the maximum possible slope was seen in the first year of awakening for 10 pairs.  We have previously modified the Beauty Coefficient~\citep{Ke2015}, which was designed to measure kinetics in single publications, to be useful to the case of co-cited pairs~\citep{devarakonda_2020} and we computed it for these 1,196 pairs observing a range of 34.21-1678.62. These data are collectively summarized in Table \ref{tab:table2}.  
+
+\begin{table}[ht]
+\caption{Summary Statistics of 1196 Delayed Co-citation Pairs. Insert stuffer text here}% title of Table
+\centering % used for centering table
+\begin{center}
+\begin{tabular}{rllll} 
+& Total Frequency & Sleep Duration & Slope & Mod. Beauty Coefficient* \\
+\hline % inserts single horizontal line
+Min &  20.00 & 10.00 & 0.21 & 34.21   \\ 
+Q1  &  22.00 & 11.00  & 1.23 & 89.40   \\ 
+Median & 26.00 & 14.00 & 1.7000 & 128.53   \\ 
+Mean & 34.06 & 15.11 & 2.40 & 167.63   \\ 
+3rd Qu & 36.00 & 17.00 & 2.67 & 190.93   \\ 
+Max & 296.00 & 38.00  & 38.00  & 1678.62   \\ 
+\hline
+\end{tabular}
+\end{center}
+\label{tab:table2} % is used to refer this table in the text
+\end{table}
+
+Considering the median, a `typical' delayed co-citation drawn from these data would have a sleep duration of around 14 years, a peak frequency of 260 [\emph{Wenxi please discuss with me}], a slope from awakening to peak of 1.7 and. beauty coefficient of 128.53. What becomes obvious is that delayed co-citations tend to have frequency profiles that are lower than those of single publications. This is not unexpected since co-cited frequencies cannot exceed the citation frequencies of the publications in these pairs but it does suggest that seemingly lower co-citation frequencies should not be glossed over.  
+
+Of the 1196 delayed co-citations, the slope could not be computed for 10 pairs because the peak year was the year of awakening, implying acute recognition of the concepts represented by these pairs (Table \ref{tab:table3}. These 10 span the areas of LED technology, cosmology, immunology, psychology, and computational science. One publication from 1985 titled, ``An exotic class of Kaluza-Klein models" appears in 3 of 10 pairs and the author himself refers, 1999, to `renewed interest due to the explosion of activity in the non compact extra dimensions variant of the Kaluza Klein model'~\citep{visser_1999}.
 
 \begin{table}[ht]
 \caption{10 pairs that have maximum slope at the first year of awakening}% title of Table
 \centering % used for centering table
 \begin{center}
-\begin{tabular}{llll} 
+\begin{tabular}{ll} 
 \hline % inserts single horizontal line
-\emph{f} & pYear & FCCY & Title \\
+PubYears & Title \\
 \hline 
-132 & 1974 &  & \tiny{Fundamental energy gap of GaN from photoluminescence excitation spectra} \\
-132 & 1971 &  &  \tiny{Absorption, reflectance, and luminescence of GaN epitaxial layers} \\
+1974 & \tiny{Fundamental energy gap of GaN from photoluminescence excitation spectra} \\
+1971 &  \tiny{Absorption, reflectance, and luminescence of GaN epitaxial layers} \\
 \hline
-125 & 1986 &  & \tiny{Dimensional reduction caused by a cosmological constant} \\
-125 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
+1986 & \tiny{Dimensional reduction caused by a cosmological constant} \\
+1985 & \tiny{An exotic class of Kaluza-Klein models} \\
 \hline
-131 & 1987 &  & \tiny{Spacetime as a membrane in higher dimensions} \\
-131 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
+1987 & \tiny{Spacetime as a membrane in higher dimensions} \\
+1985 & \tiny{An exotic class of Kaluza-Klein models} \\
 \hline 
-379 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
-379 & 1985 &  & \tiny{Do we live inside a domain wall?} \\
+1985 & \tiny{An exotic class of Kaluza-Klein models} \\
+1985 & \tiny{Do we live inside a domain wall?} \\
 \hline
-115 & 1971 &  & \tiny{Mental rotation of three-dimensional objects} \\
-115 & 1976 &  & \tiny{Demonstration of a mental analog of an external rotation} \\
+1971 & \tiny{Mental rotation of three-dimensional objects} \\
+1976 & \tiny{Demonstration of a mental analog of an external rotation} \\
 \hline
-213 & 1974 & & \tiny{Biologic and clinical significance of cryoglobulins. A report of 86 cases} \\
-213 & 1980 &  & \tiny{Mixed cryoglobulinemia: Clinical aspects and long-term follow-up of 40 patients} \\
+1974 & \tiny{Biologic and clinical significance of cryoglobulins. A report of 86 cases} \\
+1980 & \tiny{Mixed cryoglobulinemia: Clinical aspects and long-term follow-up of 40 patients} \\
 \hline
-105 & 1977 &  & \tiny{Imitation of Facial and Manual Gestures by Human Neonates} \\
-105 & 1979 &  & \tiny{Matching behavior in the young infant.} \\ 
+1977 & \tiny{Imitation of Facial and Manual Gestures by Human Neonates} \\
+1979 & \tiny{Matching behavior in the young infant.} \\ 
 \hline
-134 & 1978 &  & \tiny{Cognitive determinants of fixation location during picture viewing} \\
-134 & 1979 & & \tiny{Framing pictures: The role of knowledge in automatized encoding and memory for gist} \\
+1978 & \tiny{Cognitive determinants of fixation location during picture viewing} \\
+1979 & \tiny{Framing pictures: The role of knowledge in automatized encoding and memory for gist} \\
 \hline
-100 & 1983 & & \tiny{Parst: A system of fortran routines for calculating molecular structure parameters from results of crystal structure analyses} \\
-100 & 1983 &  & \tiny{On enantiomorph‐polarity estimation} \\
+1983 & \tiny{Parst: A system of fortran routines for calculating molecular structure parameters (truncated)} \\
+1983 & \tiny{On enantiomorph‐polarity estimation} \\
 \hline
-100 & 1980 & & \tiny{Toward a positive theory of consumer choice} \\
-100 & 1973 &  & \tiny{On the psychology of prediction} \\
+1980 & \tiny{Toward a positive theory of consumer choice} \\
+1973 & \tiny{On the psychology of prediction} \\
 \hline 
 \end{tabular}
 \end{center}
-\label{tab:table1} % is used to refer this table in the text
+\label{tab:table3} % is used to refer this table in the text
 \end{table}
 
+
+Interestingly. these 1,196 pairs are derived from only 1,267 of a possible 2,392 individual publications suggesting that some highly cited pairs contribute to multiple instances of frequently co-cited pairs. Indeed, we have previously noted that a pair of article concerning methods in biochemistry, contribute to over 40,000 different co-cited pairs of frequency $>=$ 10~\citep{devarakonda_2020}. 
+
+A logical question is whether any of these 1,267 individual publications would be classified as Sleeping Beauties. Applying van Raan's criteria for identifying sleeping beauties, we identify 128 of these 1,267 publications as Sleeping Beauties. Thus, delayed recognition can occur without a requirement that at least one member of a co-cited pair with delayed recognition should have Sleeping Beauty characteristics. Interestingly, 27 pairs were cases where both members were Sleeping Beauties. Of these, the 1978 article by Rassias titled `On the stability of the linear mapping in Banach spaces' was a member of four different pairs. This observation also suggests that while high-referencing fields such as biology might be advantaged by our selection criteria, the thresholds we set do not entirely exclude other fields. Nevertheless, extending this work with field normalization of co-citation frequencies is warranted.
+
+\textcolor{blue}{Homework for George: classify SB pairs by discipline if possible}.
+
+We note that 
+ 
+ 
+publications and obtained the following distribution. [Now is the time to critique Ke. Why did we pick on BC and not the awakening time criteria. They do not provided a threshold value- therefore we applied positional measures].
+
+
+
 \begin{table}[ht]
-\caption{Statistical Summary of Slope for 877 Delayed Co-citation pairs}% title of Table
+\caption{Statistical Summary of Slope for 1196 Delayed Co-citation pairs}% title of Table
 \centering % used for centering table
 \begin{center}
 \begin{tabular}{cll} 
@@ -178,14 +227,8 @@ max & 38 \\
 \hline 
 \end{tabular}
 \end{center}
-\label{tab:table1} % is used to refer this table in the text
+\label{tab:table4} % is used to refer this table in the text
 \end{table}
-
-
-
-Interestingly. these 877 pairs are derived from only 927 of a possible 1754 individual publications. (Wenxi - do we have the list of pairs somewhere?). Please share. [Add more filler text] A logical question is whether delayed co-citation is associated Sleeping Beauty applications. Applying van Raan's criteria for identifying sleeping beauties, we identify 100 of 927 publication as Sleeping Beauties. As a comparative measure, we also computed the parameter free Beauty Coefficient~{Ke2015) to these 927 publications and obtained the following distribution. [Now is the time to critique Ke. Why did we pick on BC and not the awakening time criteria. They do not provided a threshold value- therefore we applied positional measures].
-
-
 
 
 Ke et al proposed Beauty Coefficient B to quantify how much a given paper can be considered as an SB~\citep{Ke2015}. Given a publication, Ke defines $c\textsubscript{0}$ as the number of citations received in the year of publication and $c\textsubscript{t}$ as the number of citations received in each year after the year of publication, where $t$ indicates the number of years. The reference line of a publication is defined as a straight line $l\textsubscript{t}$ that connects the start point $(0, c\textsubscript{0})$ and peak point $(t\textsubscript{m}, c\textsubscript{t\textsubscript{m}})$ where $m$ indicates that at the age of $t\textsubscript{m}$ the paper receives its maximum number of citations $c\textsubscript{t\textsubscript{m}}$. Then this line $l\textsubscript{t}$ can be described by the equation:
