@@ -60,7 +60,7 @@ Enter abstract text later
 
 \section{Introduction}
 
-The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. One implication is that the new idea(s) presented in such an article is `ahead of its time' and resistance to it consequently delays its recognition. Other causes for delayed recognition have also been postulated that include (i) information overload from the large amount of information available (ii)  modest communication skills of authors (iii) insufficient promotion of ideas (iv) conflict with existing theory and experimental data (v) the author's position in the social hierarchy of science (vi)  multiple discovery (vii) the composition of scientific institutions (viii) and the conservative nature of establishments~\citep{Barber1961,Merton1963,Cole1970,Garfield1970a,Garfield1980a}. This phenomenon and the term used to describe it, Sleeping Beauty, has been further studied and debated with some degree of agreement that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of a new idea~\citep{Glanzel2003,Glanzel2004,redner_2005,Braun_2010,Li2014,Ke2015,Li2016,Song2018,sugimoto_mostafa_2018}. 
+The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. One implication is that the new idea(s) presented in such an article is `ahead of its time' and resistance to it consequently delays its recognition. Other causes for delayed recognition and resistance have also been postulated that include (i) information overload from the large amount of information available (ii)  modest communication skills of authors (iii) insufficient promotion of ideas (iv) conflict with existing theory and experimental data (v) the author's position in the social hierarchy of science (vi)  multiple discovery (vii) the management of scientific institutions (viii) and the conservative nature of establishments~\citep{Barber1961,Merton1963,Cole1970,Garfield1970a,Garfield1980a}. This phenomenon and the term used to describe it, Sleeping Beauty, has been further studied and debated with some degree of agreement that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of a new idea~\citep{Glanzel2003,Glanzel2004,redner_2005,Braun_2010,Li2014,Ke2015,Li2016,Song2018,sugimoto_mostafa_2018}. 
 
 For identifying Sleeping Beauties, van Raan, and colleagues propose a classification~\citep{Raan2004}, with subsequent refinements~\citep{Raan2019}, that considers length of sleep, depth of sleep, and awake intensity as parameters. [What did van Raan conclude] \cite{Ke2015} presented a parameter free approach to reduce arbitrariness in parameters selection, and also examined a much larger dataset of 22 million publications to identify Sleeping Beauties. [Need to read what Song and Ye did- also the size of data looked at by van Raan, Redner Ye and others].
 
@@ -86,7 +86,7 @@ A particular focus of our interest is frequently co-cited publications, which by
 \begin{center}
 \includegraphics[width=10cm]{fig1}% This is a *.eps file
 \end{center}
-\caption{ Frequencies of ~940 million co-cited pairs drawn from Scopus 1985-1995. Pairwise combinations, $n\choose 2$, of references from articles indexed in Scopus (1985-1995), were generated as described in Materials and Methods. Co-citation frequencies ranged from 1 to 52,471 with a median frequency of 1. The empirical cumulative distribution function (ECDF) was calculated from 940,357,633 frequencies and plotted against co-citation frequencies on a log\textsubscript{2} scale using the ggplot2 package and the expression \emph{ggplot(x, aes(frequency) + stat\_ecdf(geom=\textquotesingle step\textquotesingle)}}
+\caption{ Frequencies of ~940 million co-cited pairs drawn from Scopus 1985-1995. Pairwise combinations, $n\choose 2$, of references from articles indexed in Scopus (1985-1995), were generated as described in Materials and Methods. Co-citation frequencies ranged from 1 to 52,471 with a median frequency of 1. The empirical cumulative distribution function (ECDF) was calculated from 940,357,633 frequencies and plotted against co-citation frequencies on a log\textsubscript{2} scale using the ggplot2 package~\citep{ggplot2} and the expression \emph{ggplot(x, aes(frequency) + stat\_ecdf(geom=\textquotesingle step\textquotesingle)}}
 \label{fig:fig1}
 \end{figure}
 
@@ -116,24 +116,45 @@ $> $ 2048 & 358 & 0.000038\\
 \end{table}
 
 
-To find possible sleeping beauty pairs, we added the following conditions. (i)  A co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year, which is the publication year of the newer individual paper, to the first year that the pair receives more than $2$ co-citations. During this sleeping period, the average annual co-citation frequency $<=$1 and the maximum allowed annual co-citation frequency is 2. To be considered as a sleeping beauty, the awakening period that follows the sleeping period is characterized by (i) a peak annual co-citation frequency of 20 and a minimum total frequency of 100. The above criteria when collectively applied, identified 877 cases of delayed co-citation, which are summarized in (need a table and a figure). 
-
-We also calculated the slope between the co-citation frequency in the first awakening year and the first peak, which is summarized in Table 3. (create Table 3). Of these 877 pairs, the maximum slope was seen in the first year of awakening for 7 pairs. Say something about the slope and those 7 pairs.
+To find possible sleeping beauty pairs, we added the following conditions. (i)  A co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year, which is the publication year of the newer individual paper, to the first year that the pair receives more than $2$ co-citations. During this sleeping period, the average annual co-citation frequency $<=$1 and the maximum allowed annual co-citation frequency is 2. To be considered as a sleeping beauty, the awakening period that follows the sleeping period is characterized by (i) a peak annual co-citation frequency of 20 and a minimum total frequency of 100. The above criteria when collectively applied, identified 1,196 cases of delayed co-citation, which are summarized in (need a table and a figure). We also calculated the slope between the co-citation frequency in the first awakening year and the first peak, which is summarized in Table 3. (create Table 3). Of these 1,196 pairs, the maximum possible slope was seen in the first year of awakening for 10 pairs, which are summarized in Table X.  
 
 \begin{table}[ht]
-\caption{7 pairs that have maximum slope at the first year of awakening}% title of Table
+\caption{10 pairs that have maximum slope at the first year of awakening}% title of Table
 \centering % used for centering table
 \begin{center}
-\begin{tabular}{cll} 
+\begin{tabular}{llll} 
 \hline % inserts single horizontal line
-Cited1 & Cited2 & Frequency \\
-970456 & 2364893 & 130 \\
-1686592 & 2364893 & 141 \\ 
-2364893 & 33744566767 & 388 \\   
-15231889 & 17138283 & 130 \\
-16262898 & 18934508 & 221 \\  
-17769362 & 18485995 & 119 \\
-20909036 & 84944438568 & 127 \\
+\emph{f} & pYear & FCCY & Title \\
+\hline 
+132 & 1974 &  & \tiny{Fundamental energy gap of GaN from photoluminescence excitation spectra} \\
+132 & 1971 &  &  \tiny{Absorption, reflectance, and luminescence of GaN epitaxial layers} \\
+\hline
+125 & 1986 &  & \tiny{Dimensional reduction caused by a cosmological constant} \\
+125 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
+\hline
+131 & 1987 &  & \tiny{Spacetime as a membrane in higher dimensions} \\
+131 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
+\hline 
+379 & 1985 &  & \tiny{An exotic class of Kaluza-Klein models} \\
+379 & 1985 &  & \tiny{Do we live inside a domain wall?} \\
+\hline
+115 & 1971 &  & \tiny{Mental rotation of three-dimensional objects} \\
+115 & 1976 &  & \tiny{Demonstration of a mental analog of an external rotation} \\
+\hline
+213 & 1974 & & \tiny{Biologic and clinical significance of cryoglobulins. A report of 86 cases} \\
+213 & 1980 &  & \tiny{Mixed cryoglobulinemia: Clinical aspects and long-term follow-up of 40 patients} \\
+\hline
+105 & 1977 &  & \tiny{Imitation of Facial and Manual Gestures by Human Neonates} \\
+105 & 1979 &  & \tiny{Matching behavior in the young infant.} \\ 
+\hline
+134 & 1978 &  & \tiny{Cognitive determinants of fixation location during picture viewing} \\
+134 & 1979 & & \tiny{Framing pictures: The role of knowledge in automatized encoding and memory for gist} \\
+\hline
+100 & 1983 & & \tiny{Parst: A system of fortran routines for calculating molecular structure parameters from results of crystal structure analyses} \\
+100 & 1983 &  & \tiny{On enantiomorph‐polarity estimation} \\
+\hline
+100 & 1980 & & \tiny{Toward a positive theory of consumer choice} \\
+100 & 1973 &  & \tiny{On the psychology of prediction} \\
 \hline 
 \end{tabular}
 \end{center}
