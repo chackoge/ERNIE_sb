@@ -17,12 +17,16 @@
 \usepackage[english]{babel}
 \usepackage{changes}
 \usepackage{listings}
-\definechangesauthor[name={George Chack}, color=orange]{gc}
+\definechangesauthor[name={George Chacko}, color=orange]{gc}
 %\setremarkmarkup{(#2:#1)}
 %\linenumbers
 \usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{textcomp}
+
+\newcommand\Tstrut{\rule{0pt}{2.9ex}} % "top" strut
+\newcommand\Bstrut{\rule[-1.2ex]{0pt}{0pt}}   % "bottom" strut
+\newcommand\TBstrut{\Tstrut\Bstrut} % "top and bottom" strut
 
 % Leave a blank line between paragraphs instead of using \\
 
@@ -77,23 +81,28 @@ In this study, we extend our initial study on delayed co-citation by constructin
 
 We have previously described a dataset of 33.6 million cited pairs each belonging to the top 1\% of cited articles in the Scopus bibliography~\citep[Figure~2]{devarakonda_2020}. In the present study, we expand the dataset to include all co-cited pairs from references cited by articles published in Scopus in the 11 year period, 1985-1995, not only those drawn from the top 1\% of cited articles. We also developed methods to handle a much larger volume of data using a combination of SQL, Cypher, and Python. Code for parsing Scopus XML data, a PostgreSQL schema for Scopus data, SQL, Cypher, and Python scripts used in this study are freely available from our Github repository~\citep{Korobskiy2019}.
 
-To assemble and analyze a working dataset, we first exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist, imported these data into a Neo4j database and  created indexes for performance. From these base data, we selected all publications in Scopus of citation type `article' published in the years 1985-1995 (inclusive of both), and that had at least five cited references each. In counting references, we only considered references with complete Scopus records and excluded any with cryptic placeholder identifiers. We further filtered rare cases in the data where a publication cites itself, or if the publication date of a cited reference was missing or greater than the publication date of its citing article. 
+To assemble and analyze a working dataset, we first exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist, imported these data into a Neo4j database with publications as nodes with attributes and citations as edges. After creating indexes to improve performance, we selected all publications from these base data of citation type `article' published in the years 1985-1995 (inclusive of both), and that had at least five cited references each. In counting references, we only considered references with complete Scopus records and excluded any with cryptic placeholder identifiers. We further filtered rare cases in the data where a publication cites itself, or if the publication date of a cited reference was missing or greater than the publication date of its citing article. 
 
-<<<<<<< HEAD
-We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles resulting in a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by splitting co-cited pairs into small batches (1000 pairs) in Neo4j, and processed them in parallel using the GNU Parallel utility after tuning batch size and the degree of parallelization (CPU cores used). In order to optimize the processing time, we performed a small-scale subset testing using 1 million pairs to determine the optimal batch size. For batch sizes of 100, 500, 1000, 5000, and 10000, the processing time was, correspondingly, approximately 53min, 30min, 30min, 53min, and 1h:30min; thus we decided to use 1000 as our batch size. Then we doubled the RAM, upgraded Neo4j to 4.0 and used 15 CPU cores in parallel, which improved the subset processing time from 30min to 11.4min. We then divided all 940 million pairs into 9 chops: each had around 100 million pairs and took approximately 19 hours to process.
+After initial comparison of SQL vs Cypher, we chose, on the basis of simplicity and performance, to use Cypher queries in Neo4j to generate all pairwise combinations, $n\choose 2$, of an article's cited references. We de-duplicated these pairs across all articles to assemble a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by dividing the data and processing batches in parallel using Neo4j and the GNU Parallel utility.  After tuning experiments on a test set of 1 million pairs using a Neo4j 4.0 in a Centos 7.5 virtual machine with 128 Gb of RAM and 16 vCPUs in the Microsoft Azure environment, we set batch size to 1000 pairs and the degree of parallelization to 15 cores. Under these conditions, it took roughly 11 min to compute co-citation frequencies for a batch of 1000 pairs. We then divided all 940 million pairs into 9 subsets of around 100 million pairs each and processed them at the rate of approximately 19 hours per subset. 
 
-The Cypher query for calculating frequencies of pairs in Neo4j is stated below:
+As an example, the Cypher query for calculating co-citation frequencies of pairs in Neo4j is shown below:
 \lstset{language=Pascal, basicstyle=\footnotesize} 
 \begin{lstlisting}[frame=single]
 UNWIND $input_data AS row
 MATCH (a:Publication{node_id: row.cited_1})<--(p)-->(b:Publication{node_id:row.cited_2})
 RETURN row.cited_1 AS cited_1, row.cited_2 AS cited_2, count(p) AS scopus_frequency;
 \end{lstlisting}
-=======
-We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles resulting in a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by splitting co-cited pairs into small batches (1000 pairs) in Neo4j, and processed them in parallel using the GNU Parallel utility after tuning batch size and the degree of parallelization (CPU cores used). \textcolor{blue}{Shall we share some performance data?} [insert performance data]
->>>>>>> 3795e7358543baa53f2461e818c3d23765d9fdf9
 
-Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, for continuity of coverage, we inserted zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus and computing kinetic data through 2018 in this study. We compared small samples between the two datasets and found that minor differences in co-citation frequencies could be bridged by including citations from publications in 2019 and later. 
+Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, for continuity of coverage, we set zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus and computing kinetic data through 2018 in this study. We compared small samples between the two datasets and found that minor differences in co-citation frequencies could be bridged by including citations from publications in 2019 and later. 
+
+\textcolor{blue}{For Wenxi}
+\emph{Identifying Sleeping Beauty publications}
+
+\emph{Identifying Delayed Co-citations}
+
+\emph{Calculating slope}
+
+\emph{Calculating the Beauty Coefficient for Publications and Co-cited Pairs}
 
 \section{RESULTS AND DISCUSSION}
 
@@ -114,11 +123,11 @@ of co-citation through 2018 (Fig \ref{fig:fig1},Table \ref{tab:table1}). The dis
 \begin{table}[ht]
 \caption{Distribution of ~940 million Co-citation Frequencies. The count of co-cited pairs in each frequency class as well as the percentage relative to the total number of 940,357,633 is shown. Counts include the lower bound in each class and exclude the upper bound. Add legend details}% title of Table
 \centering % used for centering table
-\begin{center}0
+\begin{center}
 \begin{tabular}{rll} 
 \emph{f} Interval & Count & Percentage \\
-\hline % inserts single horizontal line
-$<=$ 2 & 790,189,114 & 84.03 \\
+\hline % inserts single horizontal line\
+$<=$ 2 & 790,189,114 & 84.03 \Tstrut\\ 
 2 -4 & 82,022,893 & 8.72 \\
 4 -8 & 41,772,728 & 4.44 \\
 8 -16 & 17,749,436 & 1.89 \\
@@ -136,7 +145,6 @@ $> $ 2048 & 358 & 0.000038\\
 \label{tab:table1} % is used to refer this table in the text
 \end{table}
 
-
 The data in Fig \ref{fig:fig1} show a highly skewed distribution of co-citation frequencies across a large dataset. Roughly 84\% of the pairs have a total co-citation frequency of 2 or less, and the 99th percentile is only 16 although each pair had at least 10 years to accumulate co-citations. Even for a pair of articles from the most recent year in our data, 1995, this frequency of 16 corresponds to less than one co-citation per year on average. Thus, a small fraction of pairs in these data have co-citation frequencies greater than 2 per year. One must consider that the reasons for delayed recognition described in the Introduction also apply to a non-recognition of merit or a recognition of non-merit, at least to a broader readership.
 
 Beyond a high level description of all co-citation frequencies, however, we are interested in frequently co-cited publications, which represent a high degree of interest from the community, and are derived from highly cited publications~\citep{Small1973}. Thus, we subset the data using a more intuitive threshold of 100 for co-citation frequency along with a maximum annual co-citation frequency of at least 20. These criteria are analogous to those proposed by van Raan~\citep{Raan2004} and Redner~\citep{redner_2005}. After applying these two further restrictions, the number of co-cited pairs is reduced to 51,613 (approximately 0.055\% of the total number of pairs).
@@ -150,7 +158,7 @@ To find cases of delayed co-citation, we applied the following conditions to 51,
 \begin{tabular}{rllll} 
 & Total Frequency & Sleep Duration & Slope & Mod. Beauty Coefficient* \\
 \hline % inserts single horizontal line
-Min &  20.00 & 10.00 & 0.21 & 34.21   \\ 
+Min &  20.00 & 10.00 & 0.21 & 34.21   \Tstrut\\ 
 Q1  &  22.00 & 11.00  & 1.23 & 89.40   \\ 
 Median & 26.00 & 14.00 & 1.7000 & 128.53   \\ 
 Mean & 34.06 & 15.11 & 2.40 & 167.63   \\ 
@@ -165,7 +173,7 @@ Max & 296.00 & 38.00  & 38.00  & 1678.62   \\
 Considering the median, a `typical' delayed co-citation drawn from these data would have a sleep duration of around 14 years, a peak frequency of 260 [\emph{Wenxi please discuss with me}], a slope from awakening to peak of 1.7 and. beauty coefficient of 128.53. What becomes obvious is that delayed co-citations tend to have frequency profiles that are lower than those of single publications. This is not unexpected since co-cited frequencies cannot exceed the citation frequencies of the publications in these pairs but it does suggest that seemingly lower co-citation frequencies should not be glossed over.  
 
 Of the 1196 delayed co-citations, the slope could not be computed for 10 pairs because the peak year was the year of awakening, implying acute recognition of the concepts represented by these pairs (Table \ref{tab:table3}. These 10 span the areas of LED technology, cosmology, immunology, psychology, and computational science. One publication from 1985 titled, ``An exotic class of Kaluza-Klein models" appears in 3 of 10 pairs and the author himself refers, 1999, to `renewed interest due to the explosion of activity in the non compact extra dimensions variant of the Kaluza Klein model'~\citep{visser_1999}.
-
+\vspace{-3mm}
 \begin{table}[ht]
 \caption{10 pairs that have maximum slope at the first year of awakening}% title of Table
 \centering % used for centering table
@@ -174,35 +182,35 @@ Of the 1196 delayed co-citations, the slope could not be computed for 10 pairs b
 \hline % inserts single horizontal line
 PubYears & Title \\
 \hline 
-1974 & \tiny{Fundamental energy gap of GaN from photoluminescence excitation spectra} \\
-1971 &  \tiny{Absorption, reflectance, and luminescence of GaN epitaxial layers} \\
+\tiny{1974} & \tiny{Fundamental energy gap of GaN from photoluminescence excitation spectra} \Tstrut\\
+\tiny{1971} &  \tiny{Absorption, reflectance, and luminescence of GaN epitaxial layers} \\
 \hline
-1986 & \tiny{Dimensional reduction caused by a cosmological constant} \\
-1985 & \tiny{An exotic class of Kaluza-Klein models} \\
+\tiny{1986} & \tiny{Dimensional reduction caused by a cosmological constant} \\
+\tiny{1985} & \tiny{An exotic class of Kaluza-Klein models} \\
 \hline
-1987 & \tiny{Spacetime as a membrane in higher dimensions} \\
-1985 & \tiny{An exotic class of Kaluza-Klein models} \\
+\tiny{1987} & \tiny{Spacetime as a membrane in higher dimensions} \\
+\tiny{1985} & \tiny{An exotic class of Kaluza-Klein models} \\
 \hline 
-1985 & \tiny{An exotic class of Kaluza-Klein models} \\
-1985 & \tiny{Do we live inside a domain wall?} \\
+\tiny{1985} & \tiny{An exotic class of Kaluza-Klein models} \\
+\tiny{1985} & \tiny{Do we live inside a domain wall?} \\
 \hline
-1971 & \tiny{Mental rotation of three-dimensional objects} \\
-1976 & \tiny{Demonstration of a mental analog of an external rotation} \\
+\tiny{1971} & \tiny{Mental rotation of three-dimensional objects} \\
+\tiny{1976} & \tiny{Demonstration of a mental analog of an external rotation} \\
 \hline
-1974 & \tiny{Biologic and clinical significance of cryoglobulins. A report of 86 cases} \\
-1980 & \tiny{Mixed cryoglobulinemia: Clinical aspects and long-term follow-up of 40 patients} \\
+\tiny{1974} & \tiny{Biologic and clinical significance of cryoglobulins. A report of 86 cases} \\
+\tiny{1980} & \tiny{Mixed cryoglobulinemia: Clinical aspects and long-term follow-up of 40 patients} \\
 \hline
-1977 & \tiny{Imitation of Facial and Manual Gestures by Human Neonates} \\
-1979 & \tiny{Matching behavior in the young infant.} \\ 
+\tiny{1977} & \tiny{Imitation of Facial and Manual Gestures by Human Neonates} \\
+\tiny{1979} & \tiny{Matching behavior in the young infant.} \\ 
 \hline
-1978 & \tiny{Cognitive determinants of fixation location during picture viewing} \\
-1979 & \tiny{Framing pictures: The role of knowledge in automatized encoding and memory for gist} \\
+\tiny{1978} & \tiny{Cognitive determinants of fixation location during picture viewing} \\
+\tiny{1979} & \tiny{Framing pictures: The role of knowledge in automatized encoding and memory for gist} \\
 \hline
-1983 & \tiny{Parst: A system of fortran routines for calculating molecular structure parameters (truncated)} \\
-1983 & \tiny{On enantiomorph‐polarity estimation} \\
+\tiny{1983} & \tiny{Parst: A system of fortran routines for calculating molecular structure parameters (truncated)} \\
+\tiny{1983} & \tiny{On enantiomorph‐polarity estimation} \\
 \hline
-1980 & \tiny{Toward a positive theory of consumer choice} \\
-1973 & \tiny{On the psychology of prediction} \\
+\tiny{1980} & \tiny{Toward a positive theory of consumer choice} \\
+\tiny{1973} & \tiny{On the psychology of prediction} \\
 \hline 
 \end{tabular}
 \end{center}
