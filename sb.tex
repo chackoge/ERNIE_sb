@@ -16,6 +16,7 @@
 \usepackage[onehalfspacing]{setspace}
 \usepackage[english]{babel}
 \usepackage{changes}
+\usepackage{listings}
 \definechangesauthor[name={George Chack}, color=orange]{gc}
 %\setremarkmarkup{(#2:#1)}
 %\linenumbers
@@ -78,7 +79,15 @@ We have previously described a dataset of 33.6 million cited pairs each belongin
 
 To assemble and analyze a working dataset, we first exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist, imported these data into a Neo4j database and  created indexes for performance. From these base data, we selected all publications in Scopus of citation type `article' published in the years 1985-1995 (inclusive of both), and that had at least five cited references each. In counting references, we only considered references with complete Scopus records and excluded any with cryptic placeholder identifiers. We further filtered rare cases in the data where a publication cites itself, or if the publication date of a cited reference was missing or greater than the publication date of its citing article. 
 
-We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles resulting in a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by splitting co-cited pairs into small batches (1000 pairs) in Neo4j, and processed them in parallel using the GNU Parallel utility after tuning batch size and the degree of parallelization (CPU cores used). \textcolor{blue}{Shall we share some performance data?}. 
+We used Cypher queries in Neo4j to generate all pairwise combinations $n\choose 2$, of an article's cited references, and de-duplicated these pairs across all articles resulting in a dataset of 940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by splitting co-cited pairs into small batches (1000 pairs) in Neo4j, and processed them in parallel using the GNU Parallel utility after tuning batch size and the degree of parallelization (CPU cores used). In order to optimize the processing time, we performed a small-scale subset testing using 1 million pairs to determine the optimal batch size. For batch sizes of 100, 500, 1000, 5000, and 10000, the processing time was, correspondingly, approximately 53min, 30min, 30min, 53min, and 1h:30min; thus we decided to use 1000 as our batch size. Then we doubled the RAM, upgraded Neo4j to 4.0 and used 15 CPU cores in parallel, which improved the subset processing time from 30min to 11.4min. We then divided all 940 million pairs into 9 chops: each had around 100 million pairs and took approximately 19 hours to process.
+
+The Cypher query for calculating frequencies of pairs in Neo4j is stated below:
+\lstset{language=Pascal, basicstyle=\footnotesize} 
+\begin{lstlisting}[frame=single]
+UNWIND $input_data AS row
+MATCH (a:Publication{node_id: row.cited_1})<--(p)-->(b:Publication{node_id:row.cited_2})
+RETURN row.cited_1 AS cited_1, row.cited_2 AS cited_2, count(p) AS scopus_frequency;
+\end{lstlisting}
 
 Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, for continuity of coverage, we inserted zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus and computing kinetic data through 2018 in this study. We compared small samples between the two datasets and found that minor differences in co-citation frequencies could be bridged by including citations from publications in 2019 and later. 
 
