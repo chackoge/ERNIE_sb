@@ -93,13 +93,13 @@ RETURN row.cited_1 AS cited_1, row.cited_2 AS cited_2, count(p) AS scopus_freque
 Frequencies thus calculated, were loaded back into PostgreSQL. For kinetic analysis, we selected all pairs with a co-citation frequency $>=$ 100 and calculated the kinetics of citation accumulation from the first possible year of co-citation for each pair through the year 2018, again in Neo4j.  Finally, for continuity of coverage, we set zero as frequency for all missing years between the first possible year of co-citation and the last co-cited year (2018). Minor differences between the data in  \cite{devarakonda_2020} are on account of more current data in Scopus and computing kinetic data through 2018 in this study. We compared small samples between the two datasets and found that minor differences in co-citation frequencies could be bridged by including citations from publications in 2019 and later. 
 
 \textcolor{blue}{For Wenxi}
-\emph{Identifying Sleeping Beauty publications}
 
-\emph{Identifying Delayed Co-citations}
+After generating the dataset of 940 million pairs, we applied three initial conditions to filter out possible delayed co-citations: (i) the minimum peak annual co-citation frequency for a co-citation pair should be $>= 20$ (ii) the minimum total frequency of a co-citation pair should be $>= 100$ (iii) a co-citation pair should be derived from two articles that both published later than 1970. Then by applying above, we identified delayed co-citation cases by setting two more conditions: (i) starting from the first possible year, which is the earlier publication year of both articles, the minimum sleeping duration should be 10 years (ii) during sleeping period the average co-citation frequency should be $<= 1$ and in each year the co-citation frequency should be $<= 2$. In order to analyze the delayed co-citation pairs we found statistically, we then calculated the slope and between the co-citation frequency in the first awakening year and the first peak frequency, and also modified the Beauty Coefficient ~\citep{Ke2015}, which was designed to measure kinetics in single publications, to be useful to the case of co-cited pairs ~\citep{devarakonda_2020}. 
 
-\emph{Calculating slope}
 
-\emph{Calculating the Beauty Coefficient for Publications and Co-cited Pairs}
+In order to answer the question delayed co-citations are derived from Sleeping Beauty publications, we examined all single publications for delayed co-citations we found by applying van Raan's criteria ~\cite{Raan2019}. We slightly modified van Raan's criteria since he's focusing on investigate the number of Sleeping Beauties found for any sleeping time, during-sleep intensity and awakening citation-intensity. He investigated Sleeping Beauties with sleeping period = 5, 10, 15, 20, 25, and 30 years with a focus on the Sleeping Beauties with sleeping period = 5 and 10 years. However, in our case, we considered 10 years as the minimum sleeping period, and needed to get the exact sleeping period for each co-citation pair in order to avoid overlap between the Sleeping Beautie with ‘multiple’ sleeping times. Thus, we modified van Raan's criteria to apply on single publications as: (i) the length of the sleep in years after publication should be $>= 10$ (ii) the depth of sleep in terms of the citation rate during the sleeping period should be $<= 1$ (iii) the awakening period in years after the sleeping period should be $= 5$ (iv) the awakening citation-intensity in terms of the citation rate during the awakening period should be $>= 5$. We also calculated the Beauty Coefficient ~\citep{Ke2015} for all single publications, and compared it with van Raan's parameter-based approach.
+
+
 
 \section{RESULTS AND DISCUSSION}
 
@@ -252,29 +252,14 @@ To ask which fields these 1,196 delayed co-citations are found in, we mapped the
 \end{figure}
 
  [Now is the time to critique Ke. Why did we pick BC and not the awakening time criteria. They do not provide a threshold value- therefore we applied positional measures].
+ 
+ \textcolor{blue}{I think this part also explained why we use van Raan's criteria but not Ke's beauty coefficient. Not only the awakening time criteria, mainly I'm explaining the defects of beauty coefficient and counterexample of the beauty coefficient; and one counterexample of van Raan's criteria, which explained why we need to set minimum peak frequency to be 20}
 
+ 
+ Ke's method also has three major defects: (i) This approach doesn't put any constraints on any parameters. In general, a paper who has very large Beauty Coefficient B will have a long sleeping period, abrupt changes in citations received before reaching the peak point, and a very high peak point. But in extreme cases, as long as the peak point is high enough, a paper will definitely have a larger B value. For example, if a paper published in $2014$ receives $3000$ citations in $2018$, then even though the sleeping period is only $3$ years and each year receives only $2$ citations, by (Eq. 2) the Beauty Coefficient B equals to $2998$, which is large enough for a paper to be identified as Sleeping Beauty(Ke et al lists top 15 Sleeping Beauties in science and all of those papers have Beauty Coefficient B larger than 2000~\citep{Ke2015}). The paper in such extreme case apparently shouldn't be considered as Sleeping Beauty, which also proves that a paper must have a large positive Beauty Coefficient to be identified as Sleeping Beauty, but a paper with large positive Beauty Coefficient is not necessarily a Sleeping Beauty. (ii) Ke et al mentions that Sleeping Beauty papers will have a large Beauty Coefficient B, but he doesn't provide a exact threshold to define how large a Beauty Coefficient B should a paper have to be a Sleeping Beauty. When he examines interdisciplinary nature of top Sleeping Beauties, he divides papers into three disjoint subsets with high, medium, and low values of Beauty Coefficient B, which is the group of top $1000$ SBs $(B \geq 317.93)$, the $1001st$ to the top $1\%$ SBs $(33.21 \leq B \leq 317.93)$, and the rest $(B \leq 33.21)$~\citep{Ke2015}). These cutoff values are quite arbitrary and cannot be directly applied to other datasets. Thus the application of this Beauty Coefficient is quite unclear. (iii) Ke et al does not consider the citations received after the peak point is reached. Since Sleeping Beauty papers are those who have delayed recognization, in most cases they will keep sleeping in earlier years, gradually gain citations and reach the peak point in recent years. But this doesn't mean that we can completely ignore the kinetics after the peak point is reached. The biggest problem it will cause is that when a paper reaches its peak point twice, how should this reference line be drawn? Should we connect the start point to the first peak point or the second peak point? What if there are more than two peaks? 
 
-
-\begin{table}[ht]
-\caption{Statistical Summary of Slope for 1196 Delayed Co-citation pairs}% title of Table
-\centering % used for centering table
-\begin{center}
-\begin{tabular}{cll} 
-\hline % inserts single horizontal line
-count & 870 \\
-mean & 2.38 \\
-std & 2.36 \\
-min & 0.44 \\
-25\% & 1.25 \\
-50\% & 1.71 \\
-75\% & 2.69 \\
-max & 38 \\
-\hline 
-\end{tabular}
-\end{center}
-\label{tab:table4} % is used to refer this table in the text
-\end{table}
-
+Although van Raan's method is very solid, we still find that one thing has been overlooked: since van Raan didn't consider the maximum number of citations received as an important parameter to be tuned, in cases where a paper slept for ten years, has citation rate during sleeping period between $0$ and $1$, and then has received $5$ citations each year for $5$ years, which is the awakening period, it shouldn't be identified as a Sleeping Beauty. In such case, the paper satisfies all conditions but it doesn't show an increasing trend during awaking period. Further, after the awaking period, the paper can go back to sleep again. In such case, this paper will reach its peak point, $5$ citations, in its awaking period. van Raan didn't specify either the peak point can't be reached during awaking period or the minimum value of peak point, and this will mistakenly identify some unqualified papers as Sleeping Beauties.
+ 
 \section{CONCLUSION} In a large-scale exploration of the kinetics of co-citation, we 
 
 \section{Additional Requirements}
