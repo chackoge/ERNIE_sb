@@ -67,10 +67,12 @@ After initial comparison of SQL vs Cypher, we chose, on the basis of simplicity 
 In illustration, the simple Cypher query for calculating co-citation frequencies of pairs in Neo4j is shown below. The input to the query is a csv file containing two columns of article identifiers with each row representing a co-cited pair.  
 \vspace{2 mm}
 \lstset{language=Pascal, basicstyle=\footnotesize} 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}
 UNWIND $input_data AS row
-MATCH (a:Publication{node_id: row.cited_1})<--(p)-->(b:Publication{node_id:row.cited_2})
-RETURN row.cited_1 AS cited_1, row.cited_2 AS cited_2, count(p) AS scopus_frequency;
+MATCH (a:Publication{
+node_id: row.cited_1})<--(p)-->(b:Publication{node_id:row.cited_2})
+RETURN row.cited_1 AS cited_1, row.cited_2 AS cited_2, 
+count(p) AS scopus_frequency;
 \end{lstlisting}
 
 
