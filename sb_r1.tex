@@ -69,9 +69,11 @@ A Sleeping Beauty is a publication that is apparently unrecognized for some peri
 
 \section{Introduction}
 
-The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. An implication is that the new concept presented in such an article is `ahead of its time' and resistance to it delays recognition. Other causes for resistance and delayed recognition have been postulated that include (i) information overload from the large amount of information available, (ii)  modest communication skills of authors, (iii) insufficient promotion of ideas, (iv) conflict with existing theory and experimental data, (v) the author's position in the social hierarchy of science, (vi)  multiple discovery, (vii) the management structures of scientific institutions, (viii), and the conservative nature of establishments~\citep{Barber1961,Merton1963,Cole1970,Garfield1970a,Garfield1980a}. 
+The term `Sleeping Beauty' has been used to describe an article that is not well cited in the early years after its publication but experiences a sharp increase in the rate at which it is subsequently cited~\citep{Raan2004}. An implication is that the new concept presented in such an article is `ahead of its time' and resistance to it delays its recognition. 
 
-The Sleeping Beauty phenomenon, and variants of it, have been studied in different datasets, and some degree of agreement has emerged that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of new ideas~\citep{Glanzel2003,Glanzel2004,redner_2005,Braun_2010,Li2014,Li2016,Song2018,Raan2019}. Imaginative metaphors have emerged to describe Sleeping Beauty variants and these have been discussed in terms of their precision and impact~\citep{sugimoto_mostafa_2018}. 
+Causes for resistance~\citep{Barber1961,Cole1970}, and delayed recognition~\citep{Garfield1970a,Garfield1980a} have been postulated  that include (i) information overload from the large amount of information available, (ii)  modest communication skills of authors, (iii) insufficient promotion of ideas, (iv) conflict with existing theory and experimental data, (v) the author's position in the social hierarchy of science, (vi)  multiple discovery, (vii) the management structures of scientific institutions, (viii), and the conservative nature of establishments. 
+
+The Sleeping Beauty phenomenon, and variants of it, have been extensively studied in different datasets, and some degree of agreement exists that a fraction of the scientific literature exhibits citation kinetics that suggest delayed but eventual recognition of new ideas~\citep{Glanzel2003,redner_2005,Braun_2010,Li2014}. The size of this fraction has received different estimates as well as criteria for defining them~\citep{Glanzel2004,Ke2015,Li2016,Raan2019}, and imaginative metaphors have emerged to describe Sleeping Beauty variants that have been discussed in terms of their precision and impact~\citep{sugimoto_mostafa_2018}. 
 
 Depth of sleep, length of sleep, and awake intensity have been used as variables in studying Sleeping Beauties~\citep{Raan2004}, as well as the Gini coefficient to examine later years of citation history~\citep{li_2014}, a parameter-free beauty coefficient ~\citep{Ke2015}, positional measures~\citep{costas2010}, and the citation angle by \cite{ye_bornmann_2018}. While earlier studies examined small datasets, subsequent ones have considered large samples of the literature, for example, 22 million publications in \cite{Ke2015}.
 	
@@ -86,7 +88,7 @@ We have previously described a dataset of 33.6 million cited pairs each belongin
 
 To assemble and analyze a working dataset, we first exported 95,524,693 publication records from Scopus (all citation types) as a citation graph consisting of an edgelist and a nodelist, imported these data into a graph database (Neo4j) treating publications as nodes and citations as edges. After creating indexes to improve performance, we selected all publications of citation type `article' published in the years 1985-1995 (inclusive of both) that had at least five cited references each. In counting references, we only considered references with complete Scopus records. Incomplete references and those with cryptic placeholder identifiers were removed from the dataset. We also filtered rare cases in the data where a publication cites itself, or if the publication date of a cited reference was missing or greater than the publication date of its citing article. Selection of publications with at least 5 references was performed after curating references.
 
-After initial comparison of SQL vs Cypher, we chose, on the basis of simplicity and performance, to use Cypher queries in Neo4j to generate all pairwise $n\choose 2$ combinations of an article's cited references. We de-duplicated these pairs across all articles to assemble a dataset of $\sim$940 million pairs (940,357,633 pairs), roughly 28 times larger than the dataset in \cite{devarakonda_2020}. We then calculated the frequency of co-cited pairs by dividing the data and processing batches in parallel using Neo4j and the GNU Parallel utility.  After tuning experiments on a test set of 1 million pairs using a Neo4j 4.0 in a Centos 7.5 virtual machine with 128 Gb of RAM and 16 vCPUs in the Microsoft Azure environment, we set the batch size to 1,000 pairs and the degree of parallelization to 15 cores. Under these conditions, it took roughly 11 min to compute co-citation frequencies for a batch of 1,000 pairs. We divided these 940 million pairs into 9 subsets of around 100 million pairs each and processed them at the rate of approximately 19 hours per subset.  
+After initial comparison of SQL vs Cypher, we chose, on the basis of simplicity and performance, to use Cypher queries in Neo4j to generate all pairwise $n\choose 2$ combinations of an article's cited references. We de-duplicated these pairs across all articles to assemble a dataset of $\sim$940 million pairs (940,357,633 pairs). We then calculated the frequency of co-cited pairs by dividing the data and processing batches in parallel using Neo4j and the GNU Parallel utility.  After tuning experiments on a test set of 1 million pairs using a Neo4j 4.0 in a Centos 7.5 virtual machine with 128 Gb of RAM and 16 vCPUs in the Microsoft Azure environment, we set the batch size to 1,000 pairs and the degree of parallelization to 15 cores. Under these conditions, it took roughly 11 min to compute co-citation frequencies for a batch of 1,000 pairs. We divided these 940 million pairs into 9 subsets of around 100 million pairs each and processed them at the rate of approximately 19 hours per subset.  
 
 In illustration, the simple Cypher query for calculating co-citation frequencies of pairs in Neo4j is shown below. The input to the query is a csv file containing two columns of article identifiers with each row representing a co-cited pair.  
 \vspace{2 mm}
@@ -149,7 +151,7 @@ The data in Fig \ref{fig:fig1} show a highly skewed distribution of co-citation 
 Beyond a high level understanding of the distribution of co-citation frequencies, however, we are interested in frequently co-cited publications, which are derived from highly cited publications~\citep{Small1973}, and 
 are of interest to the community.  Thus, we subset the data using a conservative threshold of 100 for total co-citation frequency along with a peak annual co-citation frequency of at least 20. These criteria are analogous to those proposed by van Raan~\citep{Raan2004} and Redner~\citep{redner_2005}. After applying these two further restrictions, the number of co-cited pairs is reduced to 51,613 (approximately 0.055\% of the total number of pairs).
 
-To find cases of delayed co-citation, we applied the following conditions to these 51,613 pairs: (i)  a co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year to the first year that the pair receives more than $2$ co-citations. To be considered as a Sleeping Beauty, the awakening period that follows the sleeping period is characterized by (ii) a peak annual co-citation frequency of at least 20. These criteria when collectively applied, identified 1,196 cases of delayed co-citation, whose characteristics are summarized in Table \ref{tab:table2}. 
+To find cases of delayed co-citation, we applied the following conditions to these 51,613 pairs: (i)  a co-cited paper should have slept for at least $10$ years and received no more than $2$ co-citations in each year during this sleeping period, which is defined as as the number of years from the first possible co-cited year to the first year that the pair receives more than $2$ co-citations. To be considered as a Sleeping Beauty, the awakening period that follows the sleeping period is characterized by (ii) a peak annual co-citation frequency of at least 20. These criteria when collectively applied, identified 1,196 cases of delayed co-citation, whose characteristics are summarized in Table \ref{tab:table2}. We also note that roughly 18\% (223/1196) pairs were connected by direct citation to each other.
 
 \begin{table}[ht]
 \caption{Summary Statistics of 1,196 Delayed Co-citation Pairs. Criteria for selection were a minimum sleeping period of 10 years and a minimum peak of 20 citations in any year.}% title of Table
@@ -240,37 +242,37 @@ An appealing alternative approach for delayed co-citations and Sleeping Beauties
 
 Ke and colleagues comment that parameterized approaches in preceding studies have suffered from being somewhat arbitrary. Arbitrariness may not have impeded discovery, for example Redner's work on the physics literature~\citep{redner_2005} with its selection threshold of 250 citations. Further, while the Beauty Coefficient is parameter free, the choice of selection threshold is left to the user leaving the door open for arbitrary selection thresholds. We consider this a strength of the measure since it can be used in contextual studies. The approach of van Raan is also intuitive and flexible but does not consider the maximum number of citations received as an important parameter to be tuned.  The cases with a sleeping period of ten years, and a citation rate of 5 for the next 5 years, would satisfy requirements for a Sleeping Beauty but are perhaps less noteworthy.
 
-Finally, to ask which fields these 1,196 delayed co-citations are found in, we mapped them to the All Science Journal Classification (ASJC) maintained by Scopus, which consists of 27 major subject area categories.  The data are represented in Figure \ref{fig:fig3} but should be interpreted in the light of these subject area labels being derived from journals and that an article may have more than one label. Even so, the data suggest that delayed co-citations, as we define them in our dataset are largely drawn from the domain of biochemistry, genetics, and molecular biology followed by physics, computer science, chemistry, and engineering. 
+Finally, to ask which fields these 1,196 delayed co-citations are found in, we mapped them to the All Science Journal Classification (ASJC) maintained by Scopus, which consists of 27 major subject area categories.  The data are represented in Figure \ref{fig:fig3} but should be interpreted in the light of these subject area labels being derived from journals and that an article may have more than one label. Even so, the data suggest that delayed co-citations, as we define them in our dataset are largely drawn from the domain of biochemistry, genetics, and molecular biology followed by physics, computer science, chemistry, and engineering. These observations are slightly different from \cite[Fig~4]{Ke2015} with Biochemistry, Genetics, and Molecular Biology dominating in our set but those authors studied single publications from a different data source, and a different time period. 
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=10cm]{fig3.png}% This is a *.eps file
 \end{center}
 \caption{Disciplinary composition of 1,196 Delayed Co-citations. Each node represents a major subject area in the Scopus ASJC classification. Node size is scaled to the number articles in a given subject area. Edge thickness indicates the number of pairs that have one member in one each of the two nodes connected by the edge. Major subject areas are abbreviated in the graphic:
-\emph{MTH} (Mathematics);
-\emph{IMM} (Immunology and Microbiology);
-\emph{HP} (Health Professions);
-\emph{GEN} (General);
-\emph{ENS} (Environmental Science);
-\emph{ENG} (Engineering);
-\emph{EPS} (Earth \& Planetary Sciences);
-\emph{DCS} (Decision Sciences);
-\emph{MAT} (Material Sciences);
-\emph{CEN} (Chemical Engineering);
+\emph{BGMB} (Biochemistry, Genetics \& Molecular Biology);
+\emph{SS} (Social Sciences);
 \emph{PSY} (Psychology);
 \emph{PHY} (Physics and Astronomy);
 \emph{NEU} (Neuroscience);
+\emph{EPS} (Earth \& Planetary Sciences);
+\emph{ENS} (Environmental Science);
+\emph{ENG} (Engineering);
+\emph{DCS} (Decision Sciences);
 \emph{CS}( Computer Science);
-\emph{A\&H} (Arts and Humanities);
-\emph{SS} (Social Sciences);
-\emph{MED} (Medicine);
-\emph{EGY} (Energy);
-\emph{CHE} (Chemistry);
-\emph{ABS} (Agricultural \& Biological Sciences); 
-\emph{BGMB} (Biochemistry, Genetics \& Molecular Biology);
 \emph{BMA} (Business, Management, and Accounting);
-\emph{EEF} (Economics, Econometrics and Finance)
-\emph{PTP} (Pharmacology, Toxicology \& Pharmaceutics)}
+\emph{ABS} (Agricultural \& Biological Sciences); 
+\emph{A\&H} (Arts and Humanities);
+\emph{EGY} (Energy);
+\emph{EEF} (Economics, Econometrics and Finance);
+\emph{PTP} (Pharmacology, Toxicology \& Pharmaceutics);
+\emph{MAT} (Material Sciences);
+\emph{CHE} (Chemistry);
+\emph{CEN} (Chemical Engineering);
+\emph{MTH} (Mathematics);
+\emph{MED} (Medicine);
+\emph{IMM} (Immunology and Microbiology);
+\emph{HP} (Health Professions);
+\emph{GEN} (General);}
 \label{fig:fig3}
 \end{figure}
 
@@ -311,31 +313,30 @@ Data used in this study are restricted by a license from Elsevier Inc. Intereste
 \subsection{Caption Fig 2} Kinetics of Co-citation Frequencies for Delayed Co-citations. Three sample plots are shown from 1,196 delayed co-citations selected for maximum slope (left panel). mean slope(middle panel), and minimum slope(right panel) of a line connecting the co-citation frequency of the awakening year to the co-citation frequency of the peak year . Total co-citation frequencies for these three plots were 131, 174, and 254, with peaks of 22, 22, and 23, and slopes of NA, 2.38, and 0.21 respectively. The red triangle marks the awakening year and the dotted blue line, the slope. The slope in the left panel is NA since the peak year is the awakening year. The article pairs shown above are (i) Spacetime as a membrane in higher dimensions (Gibbons 1987) \& An exotic class of Kaluza-Klein models (Visser 1985), (ii) Formulation of the reaction coordinate (Fukui 1070) \& Ab initio effective core potentials for molecular calculations. Potentials for main group elements Na to Bi (Wadt \& Hay 1985), (iii) A proposed grading system for arteriovenous malformations (Spetzler 1986) \& Arteriovenous malformations of the brain: Natural history in unoperated patients (Crawford et al. 1986).
 
 \subsection{Caption Fig 3} Disciplinary composition of 1,196 Delayed Co-citations. Each node represents a major subject area in the Scopus ASJC classification. Node size is scaled to the number articles in a given subject area. Edge thickness indicates the number of pairs that have one member in one each of the two nodes connected by the edge. Major subject areas are abbreviated in the graphic:
-\emph{MTH} (Mathematics);
-\emph{IMM} (Immunology and Microbiology);
-\emph{HP} (Health Professions);
-\emph{GEN} (General);
-\emph{ENS} (Environmental Science);
-\emph{ENG} (Engineering);
-\emph{EPS} (Earth \& Planetary Sciences);
-\emph{DCS} (Decision Sciences);
-\emph{MAT} (Material Sciences);
-\emph{CEN} (Chemical Engineering);
+\emph{BGMB} (Biochemistry, Genetics \& Molecular Biology);
+\emph{SS} (Social Sciences);
 \emph{PSY} (Psychology);
 \emph{PHY} (Physics and Astronomy);
 \emph{NEU} (Neuroscience);
+\emph{EPS} (Earth \& Planetary Sciences);
+\emph{ENS} (Environmental Science);
+\emph{ENG} (Engineering);
+\emph{DCS} (Decision Sciences);
 \emph{CS}( Computer Science);
-\emph{A\&H} (Arts and Humanities);
-\emph{SS} (Social Sciences);
-\emph{MED} (Medicine);
-\emph{EGY} (Energy);
-\emph{CHE} (Chemistry);
-\emph{ABS} (Agricultural \& Biological Sciences); 
-\emph{BGMB} (Biochemistry, Genetics \& Molecular Biology);
 \emph{BMA} (Business, Management, and Accounting);
-\emph{EEF} (Economics, Econometrics and Finance)
-\emph{PTP} (Pharmacology, Toxicology \& Pharmaceutics)
-
+\emph{ABS} (Agricultural \& Biological Sciences); 
+\emph{A\&H} (Arts and Humanities);
+\emph{EGY} (Energy);
+\emph{EEF} (Economics, Econometrics and Finance);
+\emph{PTP} (Pharmacology, Toxicology \& Pharmaceutics);
+\emph{MAT} (Material Sciences);
+\emph{CHE} (Chemistry);
+\emph{CEN} (Chemical Engineering);
+\emph{MTH} (Mathematics);
+\emph{MED} (Medicine);
+\emph{IMM} (Immunology and Microbiology);
+\emph{HP} (Health Professions);
+\emph{GEN} (General).
 \end{document}
 
 %%% Please be aware that for original research articles we only permit a combined number of 15 figures and tables, one figure with multiple subfigures will count as only one figure.
