@@ -1,60 +1,83 @@
+At the outset, we would like to thank the reviewer for her/his constructively critical comments, which we appreciate very much.
 
-> Conceptualization and vocabulary: I'd suggest you to use delayed recognition instead of sleeping beauty for scholarly rigor and precision. To describe your work, I think the term delayed recognition in co-citation
-would be much clearer, or delayed recognition of co-citation linkage.
+> Conceptualization and vocabulary: I'd suggest you to use delayed recognition instead of sleeping beauty for scholarly rigor and precision.
+To describe your work, I think the term delayed recognition in co-citation would be much clearer, or delayed recognition of co-citation linkage.
 
-We agree with the reviewer. Delayed Recognition is far more precise as Garfield, for example, used it.  However, we did not coin this term, which has been extensively used by others and originated from van Raan.
-Thus, we have used the term  when referring to prior publications. For example, the abstract of Ke et al (PNAS 2015) begins with "A Sleeping Beauty (SB) in science refers to a paper whose importance is not 
-recognized for several years after publication." Similarly from Ye and Bornmann (2016) "In recent years, a number of studies have introduced methods for identifying papers with delayed recognition (so 
-called "sleeping beauties", SBs) or have presented single publications as cases of SBs." There are also other papers from Ye, Bornmann, and van Raan among others that use this terminology so We have revised the
-text of our manuscript, however, to make our preference clear and excise Sleeping Beauty from the discussion of our own results.
+This is also our preference, one that is express in Devarakonda et al (2020, Quantitative Science Studies) where we propose the term delayed
+co-citations. We agree that delayed recognition is far more precise. However, we did not coin the term 'Sleeping Beauty', which originates from
+van Raan, has  been extensively used by others,and is found in the titles of several articles that we reference. The abstract of Ke et al (PNAS 2015)
+begins with "A Sleeping Beauty (SB) in science refers to a paper whose importance is not recognized for several years after publication." Similarly
+from Ye and Bornmann (2016) "In recent years, a number of studies have introduced methods for identifying papers with delayed recognition (so 
+called "sleeping beauties", SBs) or have presented single publications as cases of SBs." There are also other papers from Ye, Bornmann, and van Raan
+among others that use this terminology. Thus, we hesitate to ignore the term and some use of 'sleep', 'awakening' etc. is inevitable.
 
-> Depth of sleep: it was mentioned long before it was defined. When you introduce concepts such as depth of sleep, length of sleep, and awakening, please provide a precise and self-contained definition or formula,
-at least how many ways they can be measured in the literature and which one will be used in your study.For example, what is considered as an awakening event or measure? What are the available definitions and what
+The reviewer's point is well taken though, we now  use the term Sleeping Beauty when referring to prior publications that use it. We have revised
+the text of our manuscript to use delayed recognition and delayed co-citation for our co-citation analysis and where possible. presented in this
+article.
+
+> Depth of sleep: it was mentioned long before it was defined. When you introduce concepts such as depth of sleep, length of sleep, and awakening,
+please provide a precise and self-contained definition or formula, at least how many ways they can be measured in the literature and which one
+will be used in your study. For example, what is considered as an awakening event or measure? What are the available definitions and what
 is yours in this context?
 
-Yes, thank you. We have made corresponding revisions.
+Yes, thank you. We have moved the text around so that the these terms are first defined in the Materials and Methods section and
+then discussed.
 
-> The depth of the analysis should be deepened. For example, the Rassias article appeared in four pairs of co-cited references. It would be informative to the readers if you can elaborate what the four pairs are,
-when the awakening events took place in each of the pair, what are the fields of research for these four publications, and similar questions like these.
+> The depth of the analysis should be deepened. For example, the Rassias article appeared in four pairs of co-cited references. It would be
+informative to the readers if you can elaborate what the four pairs are, when the awakening events took place in each of the pair, what are the
+fields of research for these four publications, and similar questions like these.
 
-The discussion of Banach spaces is beyond our expertise but we have attempted to flesh out our discussion of Rassias.
+A discussion of Banach and normed spaces is beyond our expertise and probably distracting to the focus of the manuscript so we have
+eliminated mention of Rassias.
 
 > There are some inconsistencies, which should be easy to correct: The number of cases: 1,196 cases vs 1,126 pairs in the abstract. Please resolve.
 
-Yes, this seems to have been a carryover from a previous version of the manuscript. Thank you for pointing this out. It has been corrected.
+We did not see this in the first revision. Perhaps the original manuscript carried over to the reviewer? In any case, thank you for pointing this out.
+The second revision, which we are submitting with our response to this critique has been checked and has 1,196 throughout the manuscript. 
 
-> The scope of the data: you mentioned the references are from publications between 1985-1995, and prior 1970 publications were excluded, but then later you mentioned the last co-cited year (2018). If 1995 is
-the most recent year of your citing articles, how can you get a co-citation in year 2018? If you used publications in addition to the 1985-1995 set, please provide a clear description.
+> The scope of the data: you mentioned the references are from publications between 1985-1995, and prior 1970 publications were excluded, but
+then later you mentioned the last co-cited year (2018). If 1995 is the most recent year of your citing articles, how can you get a co-citation
+in year 2018? If you used publications in addition to the 1985-1995 set, please provide a clear description.
 
-Our apologies for not being clear enough. The targets of co-citation were the references of publications between 1985-1995. The co-citing events were measured from the first instance through 2018. Consider the
-following hyopthetical example. For two  references r1 and r2 found in an article  published in 1986 could have themselves been published in 1976 and 1980. r1 and r2 could have been first co-cited in 1980 and then
-co-cited multiple times to a total of say 250 by the end of 2018. We have revised the text to make this clear.
+The co-cited pairs we describe are from the references of articles published  between 1985-1995.The frequency with
+which they have/had been co-cited is measured from the first instance in each case right through 2018. In other words,
+the articles that co-cite them could have been published later than 1995.
+
+We provide the following hypothetical example. Consider two references r1 and r2 in an article a1, which was  published in 1986. Suppose r1 is
+published in 1976 and r2 in 1980. r1 and r2 are first co-cited by a1 in 1986. r1 and r2 are then co-cited 249 times more by articles a2...a250,
+which are published between 1986 and 2018. Thus, the co-citation frequency of r1-r2 is 250. We have revised the text to make this more clear.
 
 > Please provide a formula for computing beauty coefficient.
 
-Done.
+This is now provided with comments about how it was used.
+
+> Figure 3: Here is my suggestion: Break down the single network diagram to several ones so that each one represents a snapshot concerning
+the delayed recognition,for example, before the delayed recognition in Biochemistry and after, or simply divide the network over time,
+i.e. the year of publication.
+
+This is an interesting  suggestion that might be best addressed rigorously in a follow-up study. Figure 3 was intended to provide a high-level disciplinary
+breakdown. The reviewer is asking for additional dimensions that (i) would involve considerable effort (ii) more complex visualizations (iii) exceed the scope
+of this relatively focused article. While we have retained copies of our analyses, we no longer have access to all the Scopus source data on account of our
+collaboration with Elsevier expiring in September 2020. In fact, the whole group has disbanded and are scattered across multiple institutional affiliations now.
+That having been noted, we consider this suggestion valuable so we have added text identifying future work. The corresponding author's new team will consider
+the proposed kinetic analysis once access to research grade bibliographic data becomes available again. 
+
+> Supplemental Data: In addition to share the identity of the 1,196 pairs in their DOIs and metadata, it would be useful if the authors can share more contextual
+data such as the time series of citation frequencies and co-citation frequencies, and their corresponding Scopus ASJC Classification.
+
+We believe that we can  provide the citation and co-citation frequencies of the articles in these pairs and include this information in
+supplementary material. The ASJC classification is already part of the supplemental data for them. 
+
+> Finally, the authors should carefully proofread the paper and whenever possible use more precise and scholarly vocabularies instead of metaphorical terms, especially
+using them without giving formula or precise measurements.
+
+We have proofread the document and corrected some inadvertent errors. The metaphorical terms were not coined by us but are  part of the
+record in this area of study. We have attempted to provide definitions more clearly. We hope that the revisions are clarifying.
+
+> Minor: in the the light of prior literature => remove the two 'the's Caption of Table 3 contains 2 'the's Table 2: explain Q1 and 3rd Qu. what are they?
+
+Again, the reviewer may have seen our original manuscript since we no longer have a sentence that contains 'in the light of prior literature' but we have
+fixed the other issues and take responsibility for our sloppy editing. We hope the manuscript is improved now. Thank you for pointing out these problems
+with it.
 
 
-> Figure 3: Here is my suggestion: Break down the single network diagram to several ones so that each one represents a snapshot concerning the delayed recognition, for example, before the delayed recognition
-in Biochemistry and after, or simply divide the network over time, i.e. the year of publication.
-
-I don't want to do this. 
-
-> Supplemental Data: In addition to share the identity of the 1,196 pairs in their DOIs and metadata, it would be useful if the authors can share more contextual data such as the time series of citation frequencies
-and co-citation frequencies, and their corresponding Scopus ASJC Classification.
-
-Wenxi can we do this?
-
-> Finally, the authors should carefully proofread the paper and whenever possible use more precise and scholarly vocabularies instead of metaphorical terms, especially using them without giving formula or
-precise measurements.
-
-This point is well taken but as we explain the metaphorical term we used is not one that we coined. We hope that the revisions are clarifying. We have proofread the document and corrected some
-inadvertent errors.
-
-
-> Minor:
-in the the light of prior literature => remove the two 'the's
-Caption of Table 3 contains 2 'the's
-Table 2: explain Q1 and 3rd Qu. what are they?
-
-Fixed...GC
