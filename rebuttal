@@ -65,8 +65,10 @@ the proposed kinetic analysis once access to research grade bibliographic data b
 > Supplemental Data: In addition to share the identity of the 1,196 pairs in their DOIs and metadata, it would be useful if the authors can share more contextual
 data such as the time series of citation frequencies and co-citation frequencies, and their corresponding Scopus ASJC Classification.
 
-We believe that we can  provide the citation and co-citation frequencies of the articles in these pairs and include this information in
-supplementary material. The ASJC classification is already part of the supplemental data for them. 
+We have added a file to the Supplementary material that contains the co-citation frequencies of the 1196 pairs. Ordinarily, we would have provided
+the individual citation frequencies as well but the review process has dragged on since June 2020 and we haven't had access to the Scopus data since
+Sept 29, 2020. Our regrets but the DOIs can be used with anyone who has access to Scopus or equivalent to estimate the citation frequencies for
+individual papers- they are unlikely to have drifted much since May/June when we measured them. The ASJC classification is already part of the supplemental data for them. 
 
 > Finally, the authors should carefully proofread the paper and whenever possible use more precise and scholarly vocabularies instead of metaphorical terms, especially
 using them without giving formula or precise measurements.
